@@ -12,7 +12,8 @@
 
 
 module "diagnostic_setting" {
-  source = "../.."
+  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/monitor_diagnostic_setting/azurerm"
+  version = "~> 1.0"
 
   name                           = local.diagnostic_setting_name
   target_resource_id             = local.firewall_id
@@ -23,7 +24,8 @@ module "diagnostic_setting" {
 }
 
 module "log_analytics_workspace" {
-  source = "git::https://github.com/launchbynttdata/tf-azurerm-module_primitive-log_analytics_workspace.git?ref=1.0.0"
+  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/log_analytics_workspace/azurerm"
+  version = "~> 1.0"
 
   name                          = local.log_analytics_workspace_name
   location                      = var.location
@@ -37,7 +39,8 @@ module "log_analytics_workspace" {
 }
 
 module "resource_group" {
-  source = "git::https://github.com/launchbynttdata/tf-azurerm-module_primitive-resource_group.git?ref=1.0.0"
+  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/resource_group/azurerm"
+  version = "~> 1.0"
 
   name     = local.resource_group_name
   location = var.location
@@ -47,7 +50,8 @@ module "resource_group" {
 }
 
 module "resource_names" {
-  source = "git::https://github.com/launchbynttdata/tf-launch-module_library-resource_name.git?ref=1.0.0"
+  source  = "d2lqlh14iel5k2.cloudfront.net/module_library/resource_name/launch"
+  version = "~> 1.0"
 
   for_each = var.resource_names_map
 
@@ -62,7 +66,8 @@ module "resource_names" {
 }
 
 module "firewall" {
-  source = "git::https://github.com/launchbynttdata/tf-azurerm-module_primitive-firewall.git?ref=1.0.0"
+  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/firewall/azurerm"
+  version = "~> 1.0"
 
   firewall_map = local.firewall_map
 
@@ -70,7 +75,8 @@ module "firewall" {
 }
 
 module "network" {
-  source = "git::https://github.com/launchbynttdata/tf-azurerm-module_collection-virtual_network.git?ref=1.0.0"
+  source  = "d2lqlh14iel5k2.cloudfront.net/module_collection/virtual_network/azurerm"
+  version = "~> 1.0"
 
   network_map = local.network_map
   depends_on  = [module.resource_group]
