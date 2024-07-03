@@ -12,7 +12,7 @@
 
 
 module "diagnostic_setting" {
-  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/monitor_diagnostic_setting/azurerm"
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/monitor_diagnostic_setting/azurerm"
   version = "~> 1.0"
 
   name                           = local.diagnostic_setting_name
@@ -24,7 +24,7 @@ module "diagnostic_setting" {
 }
 
 module "log_analytics_workspace" {
-  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/log_analytics_workspace/azurerm"
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_workspace/azurerm"
   version = "~> 1.0"
 
   name                          = local.log_analytics_workspace_name
@@ -39,7 +39,7 @@ module "log_analytics_workspace" {
 }
 
 module "resource_group" {
-  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/resource_group/azurerm"
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm"
   version = "~> 1.0"
 
   name     = local.resource_group_name
@@ -50,7 +50,7 @@ module "resource_group" {
 }
 
 module "resource_names" {
-  source  = "d2lqlh14iel5k2.cloudfront.net/module_library/resource_name/launch"
+  source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
   version = "~> 1.0"
 
   for_each = var.resource_names_map
@@ -66,7 +66,7 @@ module "resource_names" {
 }
 
 module "firewall" {
-  source  = "d2lqlh14iel5k2.cloudfront.net/module_primitive/firewall/azurerm"
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/firewall/azurerm"
   version = "~> 1.0"
 
   firewall_map = local.firewall_map
@@ -75,7 +75,7 @@ module "firewall" {
 }
 
 module "network" {
-  source  = "d2lqlh14iel5k2.cloudfront.net/module_collection/virtual_network/azurerm"
+  source  = "terraform.registry.launch.nttdata.com/module_collection/virtual_network/azurerm"
   version = "~> 1.0"
 
   network_map = local.network_map
