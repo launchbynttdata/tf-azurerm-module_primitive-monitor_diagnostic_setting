@@ -32,7 +32,8 @@ func TestDiagnosticSetting(t *testing.T, ctx types.TestContext) {
 		t.Fatalf("Error creating diagnostic setting client: %v", err)
 	}
 
-	t.Run("doesDiagnosticSettingExist", func(t *testing.T) {
+	t.Run("doesDiagnosticSettingExistWithFirewall", func(t *testing.T) {
+		ctx.EnabledOnlyForTests(t, "with_firewall")
 		diagnosticSettingName := terraform.Output(t, ctx.TerratestTerraformOptions(), "diagnostic_setting_name")
 		diagnosticSettingId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
 		firewallId := terraform.Output(t, ctx.TerratestTerraformOptions(), "firewall_id")
