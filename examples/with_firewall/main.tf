@@ -12,8 +12,7 @@
 
 
 module "diagnostic_setting" {
-  source  = "terraform.registry.launch.nttdata.com/module_primitive/monitor_diagnostic_setting/azurerm"
-  version = "~> 1.0"
+  source = "../.."
 
   name                           = local.diagnostic_setting_name
   target_resource_id             = local.firewall_id

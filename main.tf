@@ -32,4 +32,8 @@ resource "azurerm_monitor_diagnostic_setting" "monitor_diagnostic_setting" {
       enabled  = metric.value.enabled
     }
   }
+
+  lifecycle {
+    ignore_changes = [log_analytics_destination_type] // The provider sees this as an "add" every time
+  }
 }

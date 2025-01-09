@@ -36,9 +36,6 @@ func TestDiagnosticSettingModule(t *testing.T) {
 				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
 				"SKIP_TEST":                     true, // Skipping the test to avoid provisioning firewall
 			},
-			"app_insights": {
-				"IS_TERRAFORM_IDEMPOTENT_APPLY": false, // The provider wants to set the destination type every time
-			},
 		}).
 		Build()
 

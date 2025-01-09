@@ -131,7 +131,7 @@ variable "metric" {
 //log analytics module related variables
 variable "log_analytics_destination_type" {
   type        = string
-  description = "(Optional) Specifies the type of destination for the logs. Possible values are 'Dedicated' or 'Workspace'."
+  description = "(Optional) Specifies the type of destination for the logs. Possible values are 'Dedicated' or 'AzureDiagnostics'."
   default     = null
 }
 
