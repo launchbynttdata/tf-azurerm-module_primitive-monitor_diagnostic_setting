@@ -35,6 +35,9 @@ func TestDiagnosticSettingModule(t *testing.T) {
 			"with_firewall": {
 				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
 			},
+			"app_insights": {
+				"IS_TERRAFORM_IDEMPOTENT_APPLY": false,
+			},
 		}).
 		Build()
 

@@ -29,3 +29,8 @@ output "diagnostic_setting_name" {
   description = "The name of the diagnostic setting."
   value       = local.diagnostic_setting_name
 }
+
+output "app_insights_id" {
+  description = "The ID of the Application Insights resource."
+  value       = module.application_insights.id
+}
