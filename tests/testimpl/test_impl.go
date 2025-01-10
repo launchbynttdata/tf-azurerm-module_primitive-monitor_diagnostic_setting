@@ -32,9 +32,11 @@ func TestDiagnosticSetting(t *testing.T, ctx types.TestContext) {
 		t.Fatalf("Error creating diagnostic setting client: %v", err)
 	}
 
-	t.Run("doesDiagnosticSettingExist", func(t *testing.T) {
-		diagnosticSettingName := terraform.Output(t, ctx.TerratestTerraformOptions(), "diagnostic_setting_name")
-		diagnosticSettingId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
+	diagnosticSettingName := terraform.Output(t, ctx.TerratestTerraformOptions(), "diagnostic_setting_name")
+	diagnosticSettingId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
+
+	t.Run("doesDiagnosticSettingExistWithFirewall", func(t *testing.T) {
+		ctx.EnabledOnlyForTests(t, "with_firewall")
 		firewallId := terraform.Output(t, ctx.TerratestTerraformOptions(), "firewall_id")
 
 		diagnosticSetting, err := diagnosticSettingsClient.Get(context.Background(), firewallId, diagnosticSettingName, nil)
@@ -43,5 +45,30 @@ func TestDiagnosticSetting(t *testing.T, ctx types.TestContext) {
 		}
 
 		assert.Equal(t, strings.ToLower(diagnosticSettingId), strings.ToLower(*diagnosticSetting.ID), "Diagnostic Setting ID does not match.")
+	})
+
+	t.Run("doesDiagnosticSettingExistWithAppInsights", func(t *testing.T) {
+		ctx.EnabledOnlyForTests(t, "app_insights")
+		appInsightsId := terraform.Output(t, ctx.TerratestTerraformOptions(), "app_insights_id")
+
+		diagnosticSetting, err := diagnosticSettingsClient.Get(context.Background(), appInsightsId, diagnosticSettingName, nil)
+		if err != nil {
+			t.Fatalf("Error getting diagnostic setting: %v", err)
+		}
+
+		/* The diagnostic setting ID returned from the terraform provider is in a different format than the one returned from the Azure SDK.
+
+		The terraform provider returns the ID in the format:
+		/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/components/{appInsightsName}|{diagnosticSettingName}
+		While the Azure SDK returns the ID in the format:
+		/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{appInsightsName}/providers/microsoft.insights/diagnosticSettings/{diagnosticSettingName}
+
+		To compare the two IDs, we need to convert the terraform provider ID to the Azure SDK ID format.  If either of these sources changes the format of the ID,
+		this test will need to be updated.
+		*/
+
+		convertedId := strings.ReplaceAll(diagnosticSettingId, "|", "/providers/microsoft.insights/diagnosticSettings/")
+
+		assert.Equal(t, strings.ToLower(convertedId), strings.ToLower(*diagnosticSetting.ID), "Diagnostic Setting ID does not match. Unconverted ID: %s", diagnosticSettingId)
 	})
 }

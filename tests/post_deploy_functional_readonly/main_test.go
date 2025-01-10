@@ -32,7 +32,7 @@ func TestDiagnosticSettingModule(t *testing.T) {
 		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
 		SetTestConfigFileName(infraTFVarFileNameDefault).
 		SetTestSpecificFlags(map[string]types.TestFlags{
-			"diagnostic_setting": {
+			"with_firewall": {
 				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
 			},
 		}).
