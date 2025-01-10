@@ -137,7 +137,7 @@ variable "local_authentication_disabled" {
 
 variable "sku" {
   type        = string
-  description = "(Optional) Specifies the SKU of the Log Analytics Workspace. Possible values are Free, PerNode, Premium, Standard, Standalone, Unlimited, CapacityReservation, and PerGB2018 (new SKU as of 2018-04-03). Defaults to PerGB2018."
+  description = "(Optional) Specifies the SKU of the Log Analytics Workspace. See https://learn.microsoft.com/en-us/azure/azure-monitor/cost-usage#moving-to-the-new-pricing-model. Defaults to PerGB2018."
   default     = "Free"
 }
 

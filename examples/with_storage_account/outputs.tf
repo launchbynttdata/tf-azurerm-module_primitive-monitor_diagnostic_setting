@@ -27,7 +27,7 @@ output "resource_group_name" {
 
 output "diagnostic_setting_name" {
   description = "The name of the diagnostic setting."
-  value       = local.diagnostic_setting_name
+  value       = module.diagnostic_setting.name
 }
 
 output "app_insights_id" {

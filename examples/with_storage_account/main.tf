@@ -14,7 +14,7 @@
 module "diagnostic_setting" {
   source = "../.."
 
-  name                           = local.diagnostic_setting_name
+  name                           = module.resource_names["diagnostic_setting"].standard
   target_resource_id             = module.application_insights.id
   log_analytics_workspace_id     = module.log_analytics_workspace.id
   log_analytics_destination_type = var.log_analytics_destination_type
@@ -27,7 +27,7 @@ module "log_analytics_workspace" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_workspace/azurerm"
   version = "~> 1.0"
 
-  name                          = local.log_analytics_workspace_name
+  name                          = module.resource_names["log_analytics_workspace"].standard
   location                      = var.location
   resource_group_name           = module.resource_group.name
   sku                           = var.sku
@@ -42,10 +42,10 @@ module "resource_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm"
   version = "~> 1.0"
 
-  name     = local.resource_group_name
+  name     = module.resource_names["resource_group"].standard
   location = var.location
   tags = {
-    resource_name = local.resource_group_name
+    resource_name = module.resource_names["resource_group"].standard
   }
 }
 
