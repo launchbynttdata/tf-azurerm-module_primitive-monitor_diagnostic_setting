@@ -125,7 +125,7 @@ variable "identity" {
     type         = string
     identity_ids = optional(list(string))
   })
-  description = "(Optional) A identity block as defined below."
+  description = "(Optional) An identity with fields as defined here: https://www.terraform.io/docs/providers/azurerm/r/log_analytics_workspace.html"
   default     = null
 }
 
