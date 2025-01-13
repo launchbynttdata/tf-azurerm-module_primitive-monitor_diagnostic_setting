@@ -32,6 +32,12 @@ variable "log_analytics_destination_type" {
   default     = null
 }
 
+variable "storage_account_id" {
+  type        = string
+  description = "(Optional) Specifies the ID of a Storage Account where Diagnostics Data should be sent."
+  default     = null
+}
+
 variable "enabled_log" {
   type = list(object({
     category_group = optional(string, "allLogs")

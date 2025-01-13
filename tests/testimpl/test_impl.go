@@ -48,7 +48,7 @@ func TestDiagnosticSetting(t *testing.T, ctx types.TestContext) {
 	})
 
 	t.Run("doesDiagnosticSettingExistWithAppInsights", func(t *testing.T) {
-		ctx.EnabledOnlyForTests(t, "app_insights")
+		ctx.EnabledOnlyForTests(t, "app_insights", "with_storage_account")
 		appInsightsId := terraform.Output(t, ctx.TerratestTerraformOptions(), "app_insights_id")
 
 		diagnosticSetting, err := diagnosticSettingsClient.Get(context.Background(), appInsightsId, diagnosticSettingName, nil)
