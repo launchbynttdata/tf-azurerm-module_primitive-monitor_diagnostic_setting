@@ -40,7 +40,7 @@ variable "storage_account_id" {
 
 variable "enabled_log" {
   type = list(object({
-    category_group = optional(string, "allLogs")
+    category_group = optional(string, null)
     category       = optional(string, null)
   }))
   default = null
