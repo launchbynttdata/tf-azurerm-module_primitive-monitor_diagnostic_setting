@@ -24,7 +24,7 @@ resource_names_map = {
 location = "eastus"
 sku      = "PerGB2018"
 enabled_log = [{
-  category_group = "allLogs"
+  category = "AppTraces"
 }]
 log_analytics_destination_type = "Dedicated"
 metric = {

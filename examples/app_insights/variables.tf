@@ -114,7 +114,7 @@ variable "class_env" {
 //diagnotic setting module related variables
 variable "enabled_log" {
   type = list(object({
-    category_group = optional(string, "allLogs")
+    category_group = optional(string, null)
     category       = optional(string, null)
   }))
   default = null

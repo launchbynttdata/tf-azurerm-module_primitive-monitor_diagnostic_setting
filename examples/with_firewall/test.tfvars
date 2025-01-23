@@ -60,7 +60,7 @@ firewall_map = {
 }
 sku = "PerGB2018"
 enabled_log = [{
-  category_group = "allLogs"
+  category_group = "AllLogs"
 }]
 log_analytics_destination_type = "Dedicated"
 metric = {
