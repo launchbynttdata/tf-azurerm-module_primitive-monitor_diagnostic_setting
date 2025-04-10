@@ -137,7 +137,7 @@ No modules.
 | <a name="input_log_analytics_destination_type"></a> [log\_analytics\_destination\_type](#input\_log\_analytics\_destination\_type) | (Optional) Specifies the type of destination for the logs. Possible values are 'Dedicated' or 'AzureDiagnostics'. | `string` | `null` | no |
 | <a name="input_storage_account_id"></a> [storage\_account\_id](#input\_storage\_account\_id) | (Optional) Specifies the ID of a Storage Account where Diagnostics Data should be sent. | `string` | `null` | no |
 | <a name="input_enabled_log"></a> [enabled\_log](#input\_enabled\_log) | n/a | <pre>list(object({<br>    category_group = optional(string, null)<br>    category       = optional(string, null)<br>  }))</pre> | `null` | no |
-| <a name="input_metrics"></a> [metrics](#input\_metrics) | (Optional) List of metrics and its properties. | <pre>list(object({<br>    category = optional(string)<br>    enabled  = optional(bool)<br>    retention_policy = optional(object({<br>      enabled = optional(bool, false)<br>      days    = optional(number, 0)<br>    }))<br>  }))</pre> | `[]` | no |
+| <a name="input_metrics"></a> [metrics](#input\_metrics) | (Optional) List of metrics and its properties. | <pre>list(object({<br>    category = string<br>    enabled  = optional(bool)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 

@@ -35,10 +35,6 @@ metrics = [
   {
     category = "allMetrics"
     enabled  = true
-    retention_policy = {
-      enabled = true
-      days    = 30
-    }
   }
 ]
 identity = {

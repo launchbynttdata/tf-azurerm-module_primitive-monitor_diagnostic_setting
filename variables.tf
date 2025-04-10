@@ -49,12 +49,8 @@ variable "enabled_log" {
 variable "metrics" {
   description = "(Optional) List of metrics and its properties."
   type = list(object({
-    category = optional(string)
+    category = string
     enabled  = optional(bool)
-    retention_policy = optional(object({
-      enabled = optional(bool, false)
-      days    = optional(number, 0)
-    }))
   }))
   default = []
 }
