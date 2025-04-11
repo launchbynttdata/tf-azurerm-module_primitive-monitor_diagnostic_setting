@@ -110,10 +110,6 @@ variable "metrics" {
   type = list(object({
     category = optional(string)
     enabled  = optional(bool)
-    retention_policy = optional(object({
-      enabled = optional(bool)
-      days    = optional(number)
-    }))
   }))
   default = []
 }
