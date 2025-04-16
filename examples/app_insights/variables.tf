@@ -120,12 +120,13 @@ variable "enabled_log" {
   default = null
 }
 
-variable "metric" {
-  type = object({
+variable "metrics" {
+  description = "(Optional) List of metrics and its properties."
+  type = list(object({
     category = optional(string)
     enabled  = optional(bool)
-  })
-  default = null
+  }))
+  default = []
 }
 
 //log analytics module related variables

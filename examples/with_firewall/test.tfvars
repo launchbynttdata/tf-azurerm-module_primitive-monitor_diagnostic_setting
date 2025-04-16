@@ -63,10 +63,10 @@ enabled_log = [{
   category_group = "AllLogs"
 }]
 log_analytics_destination_type = "Dedicated"
-metric = {
+metrics = [{
   category = "allMetrics"
   enabled  = true
-}
+}]
 identity = {
   type = "SystemAssigned"
 }

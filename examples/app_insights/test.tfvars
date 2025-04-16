@@ -27,10 +27,10 @@ enabled_log = [{
   category = "AppTraces"
 }]
 log_analytics_destination_type = "Dedicated"
-metric = {
+metrics = [{
   category = "allMetrics"
   enabled  = true
-}
+}]
 identity = {
   type = "SystemAssigned"
 }

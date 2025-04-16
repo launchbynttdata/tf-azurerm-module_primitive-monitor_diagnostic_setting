@@ -46,10 +46,11 @@ variable "enabled_log" {
   default = null
 }
 
-variable "metric" {
-  type = object({
-    category = optional(string)
+variable "metrics" {
+  description = "(Optional) List of metrics and its properties."
+  type = list(object({
+    category = string
     enabled  = optional(bool)
-  })
-  default = null
+  }))
+  default = []
 }

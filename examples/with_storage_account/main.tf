@@ -19,7 +19,7 @@ module "diagnostic_setting" {
   log_analytics_workspace_id     = module.log_analytics_workspace.id
   log_analytics_destination_type = var.log_analytics_destination_type
   enabled_log                    = var.enabled_log
-  metric                         = var.metric
+  metrics                        = var.metrics
   storage_account_id             = module.storage_account.id
 }
 
