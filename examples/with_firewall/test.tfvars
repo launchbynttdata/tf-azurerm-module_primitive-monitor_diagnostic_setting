@@ -43,10 +43,13 @@ resource_names_map = {
 }
 network_map = {
   "gotestnetwork" = {
-    use_for_each    = false
-    address_space   = ["10.0.0.0/16"]
-    subnet_names    = []
-    subnet_prefixes = []
+    use_for_each  = false
+    address_space = ["10.0.0.0/16"]
+    subnets = {
+      subnet-1 = {
+        prefix = "10.0.1.0/24"
+      }
+    }
   }
 }
 location = "eastus2"

@@ -166,27 +166,33 @@ variable "firewall_map" {
 variable "network_map" {
   description = "Map of spoke networks where vnet name is key, and value is object containing attributes to create a network"
   type = map(object({
-    use_for_each    = bool
-    address_space   = optional(list(string), ["10.0.0.0/16"])
-    subnet_names    = optional(list(string), ["subnet1", "subnet2", "subnet3"])
-    subnet_prefixes = optional(list(string), ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"])
-    bgp_community   = optional(string, null)
+    resource_group_name = optional(string)
+    location            = optional(string)
+    vnet_name           = optional(string)
+    address_space       = optional(list(string), ["10.0.0.0/16"])
+    subnets = map(object({
+      prefix = string
+      delegation = optional(map(object({
+        service_name    = string
+        service_actions = list(string)
+      })), {})
+      service_endpoints                             = optional(list(string), []),
+      private_endpoint_network_policies_enabled     = optional(bool, false)
+      private_link_service_network_policies_enabled = optional(bool, false)
+      network_security_group_id                     = optional(string, null)
+      route_table_id                                = optional(string, null)
+    }))
+    bgp_community = optional(string, null)
     ddos_protection_plan = optional(object(
       {
         enable = bool
         id     = string
       }
     ), null)
-    dns_servers                                           = optional(list(string), [])
-    nsg_ids                                               = optional(map(string), {})
-    route_tables_ids                                      = optional(map(string), {})
-    subnet_delegation                                     = optional(map(map(any)), {})
-    subnet_enforce_private_link_endpoint_network_policies = optional(map(bool), {})
-    subnet_enforce_private_link_service_network_policies  = optional(map(bool), {})
-    subnet_service_endpoints                              = optional(map(list(string)), {})
-    tags                                                  = optional(map(string), {})
-    tracing_tags_enabled                                  = optional(bool, false)
-    tracing_tags_prefix                                   = optional(string, "")
+    dns_servers      = optional(list(string), [])
+    nsg_ids          = optional(map(string), {})
+    route_tables_ids = optional(map(string), {})
+    tags             = optional(map(string), {})
   }))
 }
 
