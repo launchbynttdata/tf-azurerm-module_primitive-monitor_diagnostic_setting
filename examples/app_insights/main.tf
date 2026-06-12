@@ -24,7 +24,7 @@ module "diagnostic_setting" {
 
 module "log_analytics_workspace" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_workspace/azurerm"
-  version = "~> 1.2"
+  version = "~> 1.3"
 
   name                          = local.log_analytics_workspace_name
   location                      = var.location
@@ -50,7 +50,7 @@ module "resource_group" {
 
 module "resource_names" {
   source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   for_each = var.resource_names_map
 
@@ -66,7 +66,7 @@ module "resource_names" {
 
 module "application_insights" {
   source                                = "terraform.registry.launch.nttdata.com/module_primitive/application_insights/azurerm"
-  version                               = "~> 1.0"
+  version                               = "~> 1.1"
   name                                  = module.resource_names["application_insights"].standard
   resource_group_name                   = module.resource_group.name
   application_type                      = "web"
