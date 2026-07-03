@@ -67,7 +67,7 @@ module "resource_names" {
 
 module "application_insights" {
   source                                = "terraform.registry.launch.nttdata.com/module_primitive/application_insights/azurerm"
-  version                               = "~> 1.0"
+  version                               = "~> 1.1"
   name                                  = module.resource_names["application_insights"].standard
   resource_group_name                   = module.resource_group.name
   application_type                      = "web"
@@ -100,7 +100,7 @@ module "storage_account" {
 
 module "linked_storage_account" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_linked_storage_account/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.1"
 
   data_source_type      = var.linked_storage_account_data_source_type
   resource_group_name   = module.resource_group.name
