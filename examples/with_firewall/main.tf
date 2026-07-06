@@ -88,7 +88,8 @@ module "firewall" {
   name                = module.resource_names["firewall"].standard
   resource_group_name = module.resource_group.name
   location            = var.location
-  sku_tier            = local.firewall.sku_tier
+  sku_tier            = "Standard"
+  private_ip_ranges   = try(one(values(local.firewall_map)).firewall_private_ip_ranges, null)
 
   ip_configuration = [{
     name                 = local.ip_configuration_name
@@ -105,9 +106,13 @@ module "network" {
 
   resource_group_name = module.resource_group.name
   vnet_location       = var.location
-  address_space       = local.network.address_space
+  address_space       = coalesce(try(local.network.address_space, null), ["10.0.0.0/16"])
   vnet_name           = local.virtual_network_name
-  subnets             = local.network.subnets
+  subnets = coalesce(try(local.network.subnets, null), {
+    AzureFirewallSubnet = {
+      prefix = "10.0.1.0/24"
+    }
+  })
 
   depends_on = [module.resource_group]
 }

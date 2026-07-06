@@ -46,6 +46,5 @@ locals {
 
   }
 
-  firewall = one(values(local.firewall_map))
-  network  = one(values(local.network_map))
+  network = try(one(values(local.network_map)), null)
 }
