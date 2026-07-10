@@ -25,7 +25,7 @@ module "diagnostic_setting" {
 
 module "log_analytics_workspace" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_workspace/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.3"
 
   name                          = module.resource_names["log_analytics_workspace"].standard
   location                      = var.location
@@ -40,7 +40,7 @@ module "log_analytics_workspace" {
 
 module "resource_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.2"
 
   name     = module.resource_names["resource_group"].standard
   location = var.location
@@ -51,7 +51,7 @@ module "resource_group" {
 
 module "resource_names" {
   source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
-  version = "~> 1.0"
+  version = "~> 2.4"
 
   for_each = var.resource_names_map
 
@@ -67,7 +67,7 @@ module "resource_names" {
 
 module "application_insights" {
   source                                = "terraform.registry.launch.nttdata.com/module_primitive/application_insights/azurerm"
-  version                               = "~> 1.0"
+  version                               = "~> 1.1"
   name                                  = module.resource_names["application_insights"].standard
   resource_group_name                   = module.resource_group.name
   application_type                      = "web"
@@ -88,7 +88,7 @@ module "application_insights" {
 
 module "storage_account" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/storage_account/azurerm"
-  version = "~> 1.3"
+  version = "~> 1.4"
 
   resource_group_name  = module.resource_group.name
   location             = var.location
@@ -100,7 +100,7 @@ module "storage_account" {
 
 module "linked_storage_account" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_linked_storage_account/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.1"
 
   data_source_type      = var.linked_storage_account_data_source_type
   resource_group_name   = module.resource_group.name

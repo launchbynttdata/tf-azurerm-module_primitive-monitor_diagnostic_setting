@@ -24,7 +24,7 @@ module "diagnostic_setting" {
 
 module "log_analytics_workspace" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_workspace/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.3"
 
   name                          = local.log_analytics_workspace_name
   location                      = var.location
@@ -39,7 +39,7 @@ module "log_analytics_workspace" {
 
 module "resource_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm"
-  version = "~> 1.0"
+  version = "~> 1.2"
 
   name     = local.resource_group_name
   location = var.location
@@ -50,7 +50,7 @@ module "resource_group" {
 
 module "resource_names" {
   source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
-  version = "~> 1.0"
+  version = "~> 2.4"
 
   for_each = var.resource_names_map
 
@@ -64,19 +64,55 @@ module "resource_names" {
   logical_product_service = var.logical_product_service
 }
 
+module "public_ip" {
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/public_ip/azurerm"
+  version = "~> 2.0"
+
+  name                = module.resource_names["public_ip"].standard
+  resource_group_name = module.resource_group.name
+  location            = var.location
+  allocation_method   = "Static"
+  sku                 = "Standard"
+
+  tags = {
+    resource_name = module.resource_names["public_ip"].standard
+  }
+
+  depends_on = [module.resource_group]
+}
+
 module "firewall" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/firewall/azurerm"
-  version = "~> 1.0"
+  version = "~> 2.1"
 
-  firewall_map = local.firewall_map
+  name                = module.resource_names["firewall"].standard
+  resource_group_name = module.resource_group.name
+  location            = var.location
+  sku_tier            = "Standard"
+  private_ip_ranges   = try(one(values(local.firewall_map)).firewall_private_ip_ranges, null)
 
-  depends_on = [module.network, module.resource_group]
+  ip_configuration = [{
+    name                 = local.ip_configuration_name
+    subnet_id            = module.network.subnet_name_id_map["AzureFirewallSubnet"]
+    public_ip_address_id = module.public_ip.id
+  }]
+
+  depends_on = [module.network, module.resource_group, module.public_ip]
 }
 
 module "network" {
-  source  = "terraform.registry.launch.nttdata.com/module_collection/virtual_network/azurerm"
-  version = "~> 1.2"
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/virtual_network/azurerm"
+  version = "~> 3.2"
 
-  network_map = local.network_map
-  depends_on  = [module.resource_group]
+  resource_group_name = module.resource_group.name
+  vnet_location       = var.location
+  address_space       = coalesce(try(local.network.address_space, null), ["10.0.0.0/16"])
+  vnet_name           = local.virtual_network_name
+  subnets = coalesce(try(local.network.subnets, null), {
+    AzureFirewallSubnet = {
+      prefix = "10.0.1.0/24"
+    }
+  })
+
+  depends_on = [module.resource_group]
 }

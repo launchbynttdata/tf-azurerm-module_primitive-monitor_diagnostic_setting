@@ -17,7 +17,7 @@ locals {
   public_ip_custom_name        = module.resource_names["public_ip"].standard
   ip_configuration_name        = module.resource_names["gotest_vnet_ip_configuration"].standard
 
-  firewall_id = module.firewall.firewall_ids["gotestfirewall"][0]
+  firewall_id = module.firewall.id
 
   location = var.location != null ? replace(trimspace(var.location), " ", "") : "eastus"
 
@@ -45,4 +45,6 @@ locals {
     })
 
   }
+
+  network = try(one(values(local.network_map)), null)
 }
