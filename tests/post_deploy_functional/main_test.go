@@ -39,5 +39,5 @@ func TestDiagnosticSettingModule(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestDiagnosticSetting)
+	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableDiagnosticSetting)
 }

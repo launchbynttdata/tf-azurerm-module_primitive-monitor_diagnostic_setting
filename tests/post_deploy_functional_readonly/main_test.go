@@ -38,5 +38,5 @@ func TestDiagnosticSettingModule(t *testing.T) {
 		}).
 		Build()
 
-	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestDiagnosticSetting)
+	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestComposableDiagnosticSetting)
 }
