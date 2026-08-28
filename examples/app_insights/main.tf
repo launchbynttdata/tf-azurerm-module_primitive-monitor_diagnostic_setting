@@ -67,7 +67,7 @@ module "resource_names" {
 module "application_insights" {
   source                                = "terraform.registry.launch.nttdata.com/module_primitive/application_insights/azurerm"
   version                               = "~> 1.1"
-  name                                  = module.resource_names["application_insights"].standard
+  name                                  = local.application_insights_name
   resource_group_name                   = module.resource_group.name
   application_type                      = "web"
   daily_data_cap_notifications_disabled = false
@@ -80,7 +80,7 @@ module "application_insights" {
 
   location = var.location
   tags = {
-    resource_name = module.resource_names["application_insights"].standard
+    resource_name = local.application_insights_name
     purpose       = "terratest"
   }
 }

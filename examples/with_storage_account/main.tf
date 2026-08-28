@@ -14,7 +14,7 @@
 module "diagnostic_setting" {
   source = "../.."
 
-  name                           = module.resource_names["diagnostic_setting"].standard
+  name                           = local.diagnostic_setting_name
   target_resource_id             = module.application_insights.id
   log_analytics_workspace_id     = module.log_analytics_workspace.id
   log_analytics_destination_type = var.log_analytics_destination_type
@@ -27,7 +27,7 @@ module "log_analytics_workspace" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/log_analytics_workspace/azurerm"
   version = "~> 1.3"
 
-  name                          = module.resource_names["log_analytics_workspace"].standard
+  name                          = local.log_analytics_workspace_name
   location                      = var.location
   resource_group_name           = module.resource_group.name
   sku                           = var.sku
@@ -42,10 +42,10 @@ module "resource_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm"
   version = "~> 1.2"
 
-  name     = module.resource_names["resource_group"].standard
+  name     = local.resource_group_name
   location = var.location
   tags = {
-    resource_name = module.resource_names["resource_group"].standard
+    resource_name = local.resource_group_name
   }
 }
 
@@ -68,7 +68,7 @@ module "resource_names" {
 module "application_insights" {
   source                                = "terraform.registry.launch.nttdata.com/module_primitive/application_insights/azurerm"
   version                               = "~> 1.1"
-  name                                  = module.resource_names["application_insights"].standard
+  name                                  = local.application_insights_name
   resource_group_name                   = module.resource_group.name
   application_type                      = "web"
   daily_data_cap_notifications_disabled = false
@@ -81,7 +81,7 @@ module "application_insights" {
 
   location = var.location
   tags = {
-    resource_name = module.resource_names["application_insights"].standard
+    resource_name = local.application_insights_name
     purpose       = "terratest"
   }
 }

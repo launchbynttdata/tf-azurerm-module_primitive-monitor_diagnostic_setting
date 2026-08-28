@@ -10,12 +10,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 locals {
-  resource_group_name          = module.resource_names["resource_group"].standard
-  log_analytics_workspace_name = module.resource_names["log_analytics_workspace"].standard
-  diagnostic_setting_name      = module.resource_names["diagnostic_setting"].standard
-  virtual_network_name         = module.resource_names["gotest_vnet"].standard
-  public_ip_custom_name        = module.resource_names["public_ip"].standard
-  ip_configuration_name        = module.resource_names["gotest_vnet_ip_configuration"].standard
+  resource_group_name          = module.resource_names["resource_group"].minimal_random_suffix
+  log_analytics_workspace_name = module.resource_names["log_analytics_workspace"].minimal_random_suffix
+  diagnostic_setting_name      = module.resource_names["diagnostic_setting"].minimal_random_suffix
+  virtual_network_name         = module.resource_names["gotest_vnet"].minimal_random_suffix
+  public_ip_custom_name        = module.resource_names["public_ip"].minimal_random_suffix
+  ip_configuration_name        = module.resource_names["gotest_vnet_ip_configuration"].minimal_random_suffix
 
   firewall_id = module.firewall.id
 
