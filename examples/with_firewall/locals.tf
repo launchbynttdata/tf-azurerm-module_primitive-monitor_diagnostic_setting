@@ -10,6 +10,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 locals {
+  # Network module for_each keys must be known at plan time; keep .standard here.
   resource_group_name          = module.resource_names["resource_group"].standard
   log_analytics_workspace_name = module.resource_names["log_analytics_workspace"].standard
   diagnostic_setting_name      = module.resource_names["diagnostic_setting"].standard

@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDiagnosticSetting(t *testing.T, ctx types.TestContext) {
+func TestComposableDiagnosticSetting(t *testing.T, ctx types.TestContext) {
 	credential, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		t.Fatalf("Unable to get credentials: %e\n", err)
@@ -32,12 +32,12 @@ func TestDiagnosticSetting(t *testing.T, ctx types.TestContext) {
 		t.Fatalf("Error creating diagnostic setting client: %v", err)
 	}
 
-	diagnosticSettingName := terraform.Output(t, ctx.TerratestTerraformOptions(), "diagnostic_setting_name")
-	diagnosticSettingId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
+	diagnosticSettingName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "diagnostic_setting_name")
+	diagnosticSettingId := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
 
 	t.Run("doesDiagnosticSettingExistWithFirewall", func(t *testing.T) {
 		ctx.EnabledOnlyForTests(t, "with_firewall")
-		firewallId := terraform.Output(t, ctx.TerratestTerraformOptions(), "firewall_id")
+		firewallId := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "firewall_id")
 
 		diagnosticSetting, err := diagnosticSettingsClient.Get(context.Background(), firewallId, diagnosticSettingName, nil)
 		if err != nil {
@@ -49,7 +49,7 @@ func TestDiagnosticSetting(t *testing.T, ctx types.TestContext) {
 
 	t.Run("doesDiagnosticSettingExistWithAppInsights", func(t *testing.T) {
 		ctx.EnabledOnlyForTests(t, "app_insights", "with_storage_account")
-		appInsightsId := terraform.Output(t, ctx.TerratestTerraformOptions(), "app_insights_id")
+		appInsightsId := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "app_insights_id")
 
 		diagnosticSetting, err := diagnosticSettingsClient.Get(context.Background(), appInsightsId, diagnosticSettingName, nil)
 		if err != nil {

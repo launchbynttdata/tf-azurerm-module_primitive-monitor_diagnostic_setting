@@ -9,6 +9,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 locals {
   resource_group_name          = module.resource_names["resource_group"].minimal_random_suffix
   log_analytics_workspace_name = module.resource_names["log_analytics_workspace"].minimal_random_suffix

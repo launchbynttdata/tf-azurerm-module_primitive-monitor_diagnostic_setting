@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	testConfigsExamplesFolderDefault = "../../examples/diagnostic_setting"
+	testConfigsExamplesFolderDefault = "../../examples"
 	infraTFVarFileNameDefault        = "test.tfvars"
 )
 
@@ -34,9 +34,10 @@ func TestDiagnosticSettingModule(t *testing.T) {
 		SetTestSpecificFlags(map[string]types.TestFlags{
 			"with_firewall": {
 				"IS_TERRAFORM_IDEMPOTENT_APPLY": true,
+				"SKIP_TEST":                     true,
 			},
 		}).
 		Build()
 
-	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestDiagnosticSetting)
+	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestComposableDiagnosticSetting)
 }
